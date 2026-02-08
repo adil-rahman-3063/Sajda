@@ -1,4 +1,4 @@
-import 'dart:io' show Platform, File; // Minimal import
+import 'dart:io' show File; // Minimal import
 import 'package:flutter/foundation.dart'; // For kIsWeb
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
