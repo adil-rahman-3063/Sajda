@@ -276,11 +276,11 @@ class _HomePageState extends State<HomePage> {
   Color _getRingColor() {
     int completedCount = _prayerCompletion.values.where((v) => v).length;
     if (completedCount == 5) {
-      return const Color(0xFFFFD700); // Gold
+      return Theme.of(context).colorScheme.primary; // Complete
     } else if (completedCount >= 3) {
-      return const Color(0xFFC0C0C0); // Silver
+      return Theme.of(context).colorScheme.secondary; // Almost there
     } else {
-      return const Color(0xFFA52A2A); // Brown
+      return Theme.of(context).colorScheme.tertiary; // Needs improvement
     }
   }
 
@@ -300,7 +300,7 @@ class _HomePageState extends State<HomePage> {
             ? Center(
                 child: Text(
                   _errorMessage,
-                  style: const TextStyle(color: Colors.red),
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
                 ),
               )
             : ListView(
@@ -395,7 +395,9 @@ class _HomePageState extends State<HomePage> {
                                           .headlineSmall
                                           ?.copyWith(
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
                                           ),
                                     ),
                                     Text(
@@ -403,7 +405,12 @@ class _HomePageState extends State<HomePage> {
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleMedium
-                                          ?.copyWith(color: Colors.white70),
+                                          ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onSurface
+                                                .withOpacity(0.7),
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -417,17 +424,25 @@ class _HomePageState extends State<HomePage> {
                                       vertical: 6,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: Colors.green.withOpacity(0.2),
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.primaryContainer,
                                       borderRadius: BorderRadius.circular(20),
-                                      border: Border.all(color: Colors.green),
+                                      border: Border.all(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                      ),
                                     ),
                                     child: Text(
                                       _prayerTimings!
                                           .hijriDate
                                           .holidays
                                           .first, // Show first holiday
-                                      style: const TextStyle(
-                                        color: Colors.greenAccent,
+                                      style: TextStyle(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onPrimaryContainer,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 12,
                                       ),
@@ -446,29 +461,39 @@ class _HomePageState extends State<HomePage> {
                                     width: double.infinity,
                                     padding: const EdgeInsets.all(12),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.05),
+                                      color: Theme.of(
+                                        context,
+                                      ).colorScheme.onSurface.withOpacity(0.05),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     child: Row(
                                       children: [
-                                        const Icon(
+                                        Icon(
                                           Icons.event,
-                                          color: Colors.white70,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onSurface
+                                              .withOpacity(0.7),
                                           size: 20,
                                         ),
                                         const SizedBox(width: 8),
                                         Expanded(
                                           child: Text(
                                             "Next: ${nextEvent.key}",
-                                            style: const TextStyle(
-                                              color: Colors.white70,
+                                            style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onSurface
+                                                  .withOpacity(0.7),
                                             ),
                                           ),
                                         ),
                                         Text(
                                           "${nextEvent.value} days",
-                                          style: const TextStyle(
-                                            color: Colors.white,
+                                          style: TextStyle(
+                                            color: Theme.of(
+                                              context,
+                                            ).colorScheme.onSurface,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -494,20 +519,29 @@ class _HomePageState extends State<HomePage> {
                           HeatMapCalendar(
                             datasets: _heatmapDatasets,
                             colorMode: ColorMode.color,
-                            defaultColor: Colors.white.withOpacity(
-                              0.1,
-                            ), // Glass shade
+                            defaultColor: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.1), // Glass shade
                             textColor:
                                 Colors.transparent, // Hide numbers inside boxes
                             showColorTip: false,
                             flexible: true,
                             weekTextColor: Colors.transparent, // Hide labels
                             colorsets: {
-                              1: const Color(0xFF9BE9A8),
-                              2: const Color(0xFF40C463),
-                              3: const Color(0xFF30A14E),
-                              4: const Color(0xFF216E39),
-                              5: const Color(0xFF0E4429),
+                              1: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.2),
+                              2: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.4),
+                              3: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.6),
+                              4: Theme.of(
+                                context,
+                              ).colorScheme.primary.withOpacity(0.8),
+                              5: Theme.of(context).colorScheme.primary,
                             },
                             onClick: (value) {
                               _showGlassDialog(
@@ -566,20 +600,24 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             borderRadius: 20,
             opacity: 0.2, // Stronger glass for popup
-            borderColor: Colors.white.withOpacity(0.3),
+            borderColor: Theme.of(
+              context,
+            ).colorScheme.onSurface.withOpacity(0.3),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Icon(
+                Icon(
                   Icons.calendar_today,
-                  color: Colors.white70,
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
                   size: 30,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   message,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.onSurface,
                     fontWeight: FontWeight.bold,
                   ),
                   textAlign: TextAlign.center,
@@ -587,9 +625,11 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(height: 5),
                 Text(
                   "Activity recorded", // Or fetch activity details if needed
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodySmall?.copyWith(color: Colors.white70),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
               ],
             ),
@@ -619,12 +659,15 @@ class _HomePageState extends State<HomePage> {
         direction: DismissDirection.startToEnd,
         background: Container(
           decoration: BoxDecoration(
-            color: Colors.green,
+            color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(12),
           ),
           alignment: Alignment.centerLeft,
           padding: const EdgeInsets.only(left: 20),
-          child: const Icon(Icons.check, color: Colors.white),
+          child: Icon(
+            Icons.check,
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
         ),
         confirmDismiss: (direction) async {
           _togglePrayerStatus(name);
@@ -633,8 +676,8 @@ class _HomePageState extends State<HomePage> {
         child: GlassContainer(
           opacity: isCompleted ? 0.3 : 0.15,
           borderColor: isCompleted
-              ? Colors.green
-              : Colors.white.withOpacity(0.5),
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Row(
             children: [
@@ -642,15 +685,17 @@ class _HomePageState extends State<HomePage> {
                 name,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: isCompleted ? Colors.greenAccent : Colors.white,
+                  color: isCompleted
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.onSurface,
                 ),
               ),
               if (isCompleted) ...[
                 const SizedBox(width: 8),
-                const Icon(
+                Icon(
                   Icons.check_circle,
                   size: 16,
-                  color: Colors.greenAccent,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ],
               const Spacer(),
@@ -658,7 +703,11 @@ class _HomePageState extends State<HomePage> {
                 _formatTime(time),
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: isCompleted ? Colors.greenAccent : Colors.white70,
+                  color: isCompleted
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.7),
                 ),
               ),
             ],
